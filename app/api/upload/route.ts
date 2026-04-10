@@ -15,6 +15,8 @@ export async function POST(req: NextRequest) {
   });
 
   const data = await res.json();
-  if (!res.ok) return NextResponse.json(data, { status: res.status });
-  return NextResponse.json({ url: data.url });
+  if (!res.ok || data.code !== 200 || !data.data?.download_url) {
+    return NextResponse.json({ message: data.message || "Upload failed" }, { status: 400 });
+  }
+  return NextResponse.json({ url: data.data.download_url });
 }
