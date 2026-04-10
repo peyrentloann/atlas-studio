@@ -4,6 +4,7 @@ import { useState } from "react";
 import ImageGenerator, { ImagePreset } from "@/components/ImageGenerator";
 import VideoGenerator, { VideoPreset } from "@/components/VideoGenerator";
 import Library from "@/components/Library";
+import CostSavings from "@/components/CostSavings";
 import { Generation } from "@/hooks/useLibrary";
 
 type Tab = "image" | "video" | "library";
@@ -74,6 +75,10 @@ export default function Home() {
           />
         )}
         {tab === "library" && <Library onReuse={handleReuse} />}
+
+        <div className="mt-8">
+          <CostSavings />
+        </div>
       </main>
     </div>
   );

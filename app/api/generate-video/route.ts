@@ -29,6 +29,9 @@ export async function POST(req: NextRequest) {
   });
 
   const data = await res.json();
-  if (!res.ok) return NextResponse.json(data, { status: res.status });
+  if (!res.ok || data.code !== 200 || !data.data?.id) {
+    const msg = data.message || data.data?.error || "Atlas API error";
+    return NextResponse.json({ message: msg }, { status: 400 });
+  }
   return NextResponse.json({ id: data.data.id });
 }

@@ -9,8 +9,8 @@ export async function GET(req: NextRequest) {
   });
 
   const data = await res.json();
-  if (!res.ok) return NextResponse.json(data, { status: res.status });
+  if (!res.ok || !data.data) return NextResponse.json({ status: "failed", error: data.message || "Poll error" });
 
   const { status, outputs, error } = data.data;
-  return NextResponse.json({ status, output: outputs?.[0] ?? null, error });
+  return NextResponse.json({ status, output: outputs?.[0] ?? null, error: error || null });
 }
